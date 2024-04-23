@@ -102,6 +102,62 @@
       --input: 217.2 32.6% 17.5%;
       --ring: 212.7 26.8% 83.9%;
     }
+
+    /* .wrapper {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+    } */
+
+    /* .ai {
+      background: #40414F;
+    } */
+
+    /* .chat {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+    
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 10px;
+    } */
+    
+    /* .profile {
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+    
+
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+    
+    /* .ai .profile {
+      background: #10a37f;
+    } */
+    
+    /* .profile img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+    } */
+ 
+    /* .message {
+      flex: 1;
+    
+      color: #dcdcdc;
+    
+      max-width: 100%;
+      overflow-x: scroll;
+      white-space: pre-wrap; 
+    
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    } */
   }
 
   @layer base {
@@ -110,5 +166,30 @@
     }
     body {
       @apply bg-background text-foreground;
+    }
+    .wrapper {
+      @apply w-full p-2 md:p-3 rounded-2xl;
+    }
+
+    .ai {
+      @apply bg-[#31314e];
+    }
+
+    .chat {
+      @apply w-full max-w-[1280px] mx-0 my-auto flex flex-row items-start gap-[10px];
+    }
+
+    .profile {
+      @apply w-[30px] h-[36px] rounded-[5px] flex justify-between items-center;
+
+    }
+
+    .profile_Img {
+      @apply w-[60px] h-[60px] object-contain;
+    }
+
+    .message {
+      @apply flex-1 text-[#dcdcdc] max-w-full overflow-scroll whitespace-pre-wrap;
+
     }
   }
