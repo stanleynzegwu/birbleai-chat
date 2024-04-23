@@ -1,7 +1,13 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
+import Replicate from "replicate";
 
+
+const replicate = new Replicate({
+  auth: 'r8_338YflHn22MMxIEIgk6BIGgAhIIKSfr0qg0ga',
+  // auth: process.env.REPLICATE_API_TOKEN,
+});
 dotenv.config()
 
 
@@ -16,8 +22,10 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/', async (req, res) => {
+  console.log(process.env.REPLICATE_API_TOKEN)
   try {
     const prompt = req.body.prompt;
+    console.log(prompt)
 
     const input = {
         top_k: 50,
@@ -31,13 +39,21 @@ app.post('/', async (req, res) => {
         presence_penalty: 0
       };
       
+      // let response = ''; // Initialize an empty response string
+
+      // // Aggregate all events into a single response
+      // for await (const event of replicate.stream("mistralai/mixtral-8x7b-instruct-v0.1", { input })) {
+      //     response += event.toString();
+      // }
+  
+      // // Send the aggregated response back to the client
+      // res.status(200).json({ response });
+
       for await (const event of replicate.stream("mistralai/mixtral-8x7b-instruct-v0.1", { input })) {
         process.stdout.write(event.toString());
       };
-
-    res.status(200).send({
-      bot: response.data.choices[0].text
-    });
+      
+      
 
   } catch (error) {
     console.error(error)

@@ -1,16 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
 import { useState } from "react";
 
 export default function App() {
   const [prompt, setPrompt] = useState("");
-
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
     event.preventDefault();
 
     try {
