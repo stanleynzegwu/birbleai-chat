@@ -18,7 +18,8 @@ app.use(cors(
 app.use(express.json())
 
 const replicate = new Replicate({
-
+    // auth: 'r8_bp5EVIz2Fl6C4jbgHaRBDRxrj8pdsbR4ZvHTA',
+  // auth: 'r8_JYlsK8900SonKoI6Zw3rDvbNdhrd8j70q4ZGM',
   auth: process.env.REPLICATE_API_TOKEN,
 });
 

@@ -27,7 +27,7 @@ export default function App() {
   //     // Handle error
   //   }
   // };
-
+  axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,7 +51,8 @@ export default function App() {
     loader(messageDiv);
 
     try {
-      const response = await axios.post("http://localhost:5000", { prompt });
+      // const response = await axios.post("http://localhost:5000", { prompt });
+      const response = await axios.post("https://birbleai-chat-api.vercel.app/", { prompt });
 
       clearInterval(loadInterval);
       messageDiv.innerHTML = " ";
