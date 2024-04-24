@@ -5,8 +5,8 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
 
-import bot from '../public/logo.svg'
-import user from'../public/user.png'
+import bot from '/logo.svg'
+import user from'/user.png'
 
 export let loadInterval
 

@@ -7,10 +7,18 @@ dotenv.config()
 
 
 const app = express()
-app.use(cors())
+// app.use(cors())
+app.use(cors(
+  {
+    origin: ['https://birblechat.vercel.app'],
+    methods: ["POST","GET"],
+    credentials:true
+  }
+))
 app.use(express.json())
 
 const replicate = new Replicate({
+
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
