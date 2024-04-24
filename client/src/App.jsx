@@ -5,32 +5,18 @@ import axios from "axios";
 import { useRef, useState } from "react";
 
 export default function App() {
-  const [hadConversation, setHadConversation] = useState(false);
   const [prompt, setPrompt] = useState("");
+  const [hadConversation, setHadConversation] = useState(false);
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
   };
   const chatContainer = useRef();
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   try {
-  //     const response = await axios.post("http://localhost:5000", { prompt });
-
-  //     console.log("Response from server:", response.data);
-
-  //     // Clear the textarea after submitting
-  //     setPrompt("");
-  //   } catch (error) {
-  //     console.error("Error sending data to server:", error);
-  //     // Handle error
-  //   }
-  // };
   axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setHadConversation(true);
     // user's chatstripe
     chatContainer.current.innerHTML += chatStripe(false, prompt);
 
@@ -51,7 +37,6 @@ export default function App() {
     loader(messageDiv);
 
     try {
-      // const response = await axios.post("http://localhost:5000", { prompt });
       const response = await axios.post("https://birbleai-chat-api.vercel.app", { prompt });
 
       clearInterval(loadInterval);
@@ -67,52 +52,18 @@ export default function App() {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   !hadConversation && setHadConversation(true);
-  //   // user's chatstripe
-  //   chatContainer.current.innerHTML += chatStripe(false, prompt);
-
-  //   // to clear the textarea input
-  //   setPrompt("");
-
-  //   // bot's chatstripe
-  //   const uniqueId = generateUniqueId();
-  //   chatContainer.current.innerHTML += chatStripe(true, " ", uniqueId);
-
-  //   // to focus scroll to the bottom
-  //   chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
-
-  //   // specific message div
-  //   const messageDiv = document.getElementById(uniqueId);
-
-  //   // messageDiv.innerHTML = "..."
-  //   loader(messageDiv);
-
-  //   clearInterval(loadInterval);
-  //   messageDiv.innerHTML = " ";
-
-  //   if (true) {
-  //     typeText(messageDiv, "hhhhhdh hdhdhd dhtyeye ueue jejeje hehe hehe");
-  //   } else {
-  //     const err = await response.text();
-
-  //     messageDiv.innerHTML = "Something went wrong";
-  //     alert(err);
-  //   }
-  // };
-
   return (
     <main className="p-2 md:p-4 flex w-full h-screen bg-[#100F2B] text-white">
       <div className="flex flex-col w-full h-full bg-bg_primary rounded-2xl ">
-        <div className="chat_container flex-1 overflow-scroll p-2 md:p-3" ref={chatContainer}>
-          <div
-            className={`w-full h-full flex justify-center items-center ${
-              hadConversation ? "hidden" : "flex"
-            }`}
-          >
+        <div
+          className="relative chat_container flex-1 overflow-scroll p-2 md:p-3"
+          ref={chatContainer}
+        >
+          <div className={`absolute left-0 top-0 w-full h-full flex justify-center items-center  `}>
             <img
-              className={`w-60 lg:w-72 xl:w-80 2xl:w-auto object-cover `}
+              className={`w-60 lg:w-72 xl:w-80 2xl:w-auto object-cover ${
+                hadConversation || prompt ? "opacity-0" : "opacity-100"
+              }`}
               src="/astronaut1.png"
               alt="astronaut"
             />
@@ -127,7 +78,7 @@ export default function App() {
               name="prompt"
               value={prompt}
               onChange={handleInputChange}
-              className="flex-1 bg-transparent"
+              className="flex-1 bg-transparent pt-[5px]" //added padding to center the input text
               cols={1}
               rows={1}
             />
@@ -143,8 +94,8 @@ export default function App() {
             }`}
           >
             <span className="px-2 ">Enter Prompt</span>
-            <div className="flex gap-2 bg-[#1F1F3E] rounded-xl px-2 md:px-4 py-1 border-[1px] border-[#525279] cursor-pointer">
-              <img className="w-5 h-5" src="/bot.png" alt="bot" />
+            <div className="flex items-center gap-2 bg-[#1F1F3E] rounded-xl px-2 md:px-4 py-1 border-[1px] border-[#525279] cursor-pointer">
+              <img className="w-6 h-6" src="/diceIcon.png" alt="bot" />
               <span>Need ideas for a prompt?</span>
             </div>
           </div>

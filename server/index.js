@@ -3,11 +3,8 @@ import * as dotenv from 'dotenv'
 import cors from 'cors'
 import Replicate from "replicate";
 
-dotenv.config()
-
-
 const app = express()
-// app.use(cors())
+dotenv.config()
 app.use(cors(
   {
       origin: ["https://birbleai-chat-frontend.vercel.app"],
@@ -31,18 +28,6 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    // const input = {
-    //     top_k: 50,
-    //     top_p: 0.9,
-    //     prompt: prompt,
-    //     temperature: 0.6,
-    //     system_prompt: "You are a very helpful, respectful and honest assistant.",
-    //     length_penalty: 1,
-    //     max_new_tokens: 1024,
-    //     prompt_template: "<s>[INST] {prompt} [/INST] ",
-    //     presence_penalty: 0
-    //   };
-
     const input = {
       top_p: 1,
       prompt: prompt,
@@ -53,25 +38,13 @@ app.post('/', async (req, res) => {
       
       let response = ''; // Initialize an empty response string
 
-      // Aggregate all events into a single response
-      // for await (const event of replicate.stream("mistralai/mixtral-8x7b-instruct-v0.1", { input })) {
-      //     response += event.toString();
-      // }
-
       for await (const event of replicate.stream("meta/llama-2-70b-chat", { input })) {
         response += event.toString();
     }
-      // for await (const event of replicate.stream("meta/llama-2-70b-chat", { input })) {
-      //   process.stdout.write(`${event}`)
-      // };
   
       // Send the aggregated response back to the client
       res.status(200).json({ response });
 
-      // for await (const event of replicate.stream("mistralai/mixtral-8x7b-instruct-v0.1", { input })) {
-      //   process.stdout.write(event.toString());
-      // };
-      
       
 
   } catch (error) {
