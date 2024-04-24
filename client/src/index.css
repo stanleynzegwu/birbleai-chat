@@ -185,7 +185,7 @@
     }
 
     .profile_Img {
-      @apply w-[60px] h-[60px] object-contain;
+      @apply w-[60px] h-[60px] object-contain ;
     }
 
     .message {

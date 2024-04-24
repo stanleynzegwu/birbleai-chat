@@ -1,6 +1,7 @@
+import ChatMessage from "@/components/shared/ChatMessage";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { chatStripe, generateUniqueId, loadInterval, loader, typeText } from "@/lib/utils";
+import { generateUniqueId, loadInterval, loader, typeText } from "@/lib/utils";
 import axios from "axios";
 import { useRef, useState } from "react";
 
@@ -18,14 +19,14 @@ export default function App() {
 
     setHadConversation(true);
     // user's chatstripe
-    chatContainer.current.innerHTML += chatStripe(false, prompt);
+    chatContainer.current.innerHTML += ChatMessage(false, prompt);
 
     // to clear the textarea input
     setPrompt("");
 
     // bot's chatstripe
     const uniqueId = generateUniqueId();
-    chatContainer.current.innerHTML += chatStripe(true, " ", uniqueId);
+    chatContainer.current.innerHTML += ChatMessage(true, " ", uniqueId);
 
     // to focus scroll to the bottom
     chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
@@ -51,6 +52,43 @@ export default function App() {
       typeText(messageDiv, "Something went wrong");
     }
   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     setHadConversation(true);
+//     // user's chatstripe
+//     chatContainer.current.innerHTML += ChatMessage(false, prompt);
+
+
+//     // to clear the textarea input
+//     setPrompt("");
+
+//     // bot's chatstripe
+//     const uniqueId = generateUniqueId();
+//     chatContainer.current.innerHTML += ChatMessage(true, " ", uniqueId);
+
+//     // to focus scroll to the bottom
+//     chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
+
+//     // specific message div
+//     const messageDiv = document.getElementById(uniqueId);
+
+//     // messageDiv.innerHTML = "..."
+//     loader(messageDiv);
+
+//     if (true) {
+//       clearInterval(loadInterval);
+//       messageDiv.innerHTML = " ";
+
+//       typeText(messageDiv, 'nnnnnnnnnnnnnnnnn ndddddddddd jdnnn dned dbdbbb wfwrt sfffssff sfdf');
+//     } else {
+//         const err = await response.text()
+
+//         messageDiv.innerHTML = "Something went wrong"
+//         alert(err)
+//     }
+// }
 
   return (
     <main className="p-2 md:p-4 flex w-full h-screen bg-[#100F2B] text-white">
