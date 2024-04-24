@@ -10,11 +10,11 @@ const app = express()
 // app.use(cors())
 app.use(cors(
   {
-    origin: ['https://birbleai-chat-frontend.vercel.app'],
-    methods: ["POST","GET"],
-    credentials:true
+      origin: ["https://birbleai-chat-frontend.vercel.app"],
+      methods: ["POST", "GET"],
+      credentials: true
   }
-))
+));
 app.use(express.json())
 
 const replicate = new Replicate({

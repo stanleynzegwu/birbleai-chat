@@ -52,7 +52,7 @@ export default function App() {
 
     try {
       // const response = await axios.post("http://localhost:5000", { prompt });
-      const response = await axios.post("https://birbleai-chat-api.vercel.app/", { prompt });
+      const response = await axios.post("https://birbleai-chat-api.vercel.app", { prompt });
 
       clearInterval(loadInterval);
       messageDiv.innerHTML = " ";
